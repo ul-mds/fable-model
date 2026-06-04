@@ -13,6 +13,12 @@ Validation, serialization and deserialization are done using [Pydantic](https://
 It is rare to use this package directly.
 Rather, it powers the functionalities of other packages.
 
+## Installation
+
+```commandline
+pip install fable-model
+```
+
 ## Data models
 
 Models for entity pre-processing, masking and bit vector matching are exposed through this package.
