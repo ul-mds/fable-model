@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from pprl_model import (
+from fable_model import (
     EntityTransformRequest,
     TransformConfig,
     EmptyValueHandling,

@@ -15,9 +15,17 @@ validation steps in addition to the ones native to Pydantic.
 ## Entity transformation
 
 ```python
-from pprl_model import EntityTransformRequest, TransformConfig, EmptyValueHandling, AttributeValueEntity, \
-    AttributeTransformerConfig, NumberTransformer, GlobalTransformerConfig, NormalizationTransformer, \
-    CharacterFilterTransformer
+from fable_model import (
+    EntityTransformRequest,
+    TransformConfig,
+    EmptyValueHandling,
+    AttributeValueEntity,
+    AttributeTransformerConfig,
+    NumberTransformer,
+    GlobalTransformerConfig,
+    NormalizationTransformer,
+    CharacterFilterTransformer,
+)
 
 # This is a valid config.
 _ = EntityTransformRequest(
@@ -70,8 +78,19 @@ _ = EntityTransformRequest(
 ## Entity masking
 
 ```python
-from pprl_model import EntityMaskRequest, MaskConfig, HashConfig, HashFunction, HashAlgorithm, \
-    DoubleHash, CLKFilter, AttributeValueEntity, StaticAttributeConfig, AttributeSalt, CLKRBFFilter
+from fable_model import (
+    EntityMaskRequest,
+    MaskConfig,
+    HashConfig,
+    HashFunction,
+    HashAlgorithm,
+    DoubleHash,
+    CLKFilter,
+    AttributeValueEntity,
+    StaticAttributeConfig,
+    AttributeSalt,
+    CLKRBFFilter,
+)
 
 # This is a valid config.
 _ = EntityMaskRequest(
@@ -246,7 +265,7 @@ _ = EntityMaskRequest(
 ## Bit vector matching
 
 ```python
-from pprl_model import VectorMatchRequest, MatchConfig, SimilarityMeasure, BitVectorEntity
+from fable_model import VectorMatchRequest, MatchConfig, SimilarityMeasure, BitVectorEntity
 
 _ = VectorMatchRequest(
     config=MatchConfig(
