@@ -4,7 +4,7 @@ from typing import Literal, Union, Annotated
 from pydantic import Field, conint, model_validator
 from typing_extensions import Self
 
-from pprl_model.common import ParentModel, AttributeValueEntity
+from fable_model.common import ParentModel, AttributeValueEntity
 
 
 class EmptyValueHandling(str, Enum):

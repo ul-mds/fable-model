@@ -4,7 +4,7 @@ from typing import Literal, Union, Annotated
 from pydantic import Field, conint, confloat, model_validator
 from typing_extensions import Self
 
-from pprl_model.common import ParentModel, BitVectorEntity, AttributeValueEntity
+from fable_model.common import ParentModel, BitVectorEntity, AttributeValueEntity
 
 
 class HashStrategy(str, Enum):

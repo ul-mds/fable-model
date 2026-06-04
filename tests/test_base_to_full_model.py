@@ -1,4 +1,4 @@
-from pprl_model import (
+from fable_model import (
     BitVectorEntity,
     AttributeValueEntity,
     BaseMatchRequest,

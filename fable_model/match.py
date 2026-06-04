@@ -3,7 +3,7 @@ from typing import Annotated
 
 from pydantic import confloat, Field
 
-from pprl_model.common import ParentModel, BitVectorEntity
+from fable_model.common import ParentModel, BitVectorEntity
 
 
 class MatchMethod(str, Enum):
