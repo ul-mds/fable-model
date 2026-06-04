@@ -1,7 +1,7 @@
 [project]
 name = "fable-model"
 version = "0.1.6"
-description = "Data models for use with a HTTP-based service for privacy-preserving record linkage using Bloom filters."
+description = "Data models utilized in the FABLE ecosystem's HTTP-based PPRL service."
 authors = [
     {name = "Maximilian Jugl"},
     {name = "Paul Brassel", email = "paul.brassel@medizin.uni-leipzig.de"}

@@ -1,18 +1,26 @@
-This package contains model classes that are used in the PPRL service for validation purposes.
-They have been conceived with the idea of an HTTP-based service for record linkage based on Bloom filters in mind.
-It encompasses models for the service's data transformation, masking and bit vector matching routines.
-[Pydantic](https://docs.pydantic.dev/latest/) is used for validation, serialization and deserialization.
-This package is rarely to be used directly.
-Instead, it is used by other packages to power their functionalities.
+[![PyPI](https://img.shields.io/pypi/v/fable-model?cacheSeconds=0)](https://pypi.org/project/fable-model/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/fable-model?cacheSeconds=0)](https://pypi.org/project/fable-model/)
+![Code Coverage]()
+[![License](https://img.shields.io/pypi/l/fable-model?cacheSeconds=0)](https://pypi.org/project/fable-model/)
 
-# Data models
+# FABLE Model
+
+This package contains model classes that are used in the FABLE (**F**ederated
+**A**nonymized **B**loom filter **L**inkage **E**ngine) ecosystem's PPRL service for validation purposes.
+They were developed with the intention of creating an HTTP-based service for Bloom filter-based record linkage.
+It includes models for the service's data transformation, masking and bit vector matching routines.
+Validation, serialization and deserialization are done using [Pydantic](https://docs.pydantic.dev/latest/).
+It is rare to use this package directly.
+Rather, it powers the functionalities of other packages.
+
+## Data models
 
 Models for entity pre-processing, masking and bit vector matching are exposed through this package.
 The following examples are taken from the test suites of the
-[PPRL service package](https://github.com/ul-mds/pprl/tree/main/packages/pprl_service) and show additional
+[FABLE PPRL service package](https://github.com/ul-mds/fable-pprl-service) and show additional
 validation steps in addition to the ones native to Pydantic.
 
-## Entity transformation
+### Entity transformation
 
 ```python
 from fable_model import (
@@ -75,7 +83,7 @@ _ = EntityTransformRequest(
 # => ValidationError: attribute and global transformers are empty: must contain at least one
 ```
 
-## Entity masking
+### Entity masking
 
 ```python
 from fable_model import (
@@ -178,7 +186,7 @@ _ = EntityMaskRequest(
 )
 # => ValidationError: neither value nor attribute is set
 
-# When using a weighted filter (RBF, CLKRBF), an error will be thrown if any attribute configuration 
+# When using a weighted filter (RBF, CLKRBF), an error will be thrown if any attribute configuration
 # provided is static, not weighted. The same applies vice versa, meaning if CLK is specified as a filter and
 # weighted attribute configurations are provided.
 _ = EntityMaskRequest(
@@ -262,7 +270,7 @@ _ = EntityMaskRequest(
 # => ValidationError: some configured attributes are not present on entities: `last_name` on entities with ID `001`
 ```
 
-## Bit vector matching
+### Bit vector matching
 
 ```python
 from fable_model import VectorMatchRequest, MatchConfig, SimilarityMeasure, BitVectorEntity
@@ -287,6 +295,6 @@ _ = VectorMatchRequest(
 )
 ```
 
-# License
+## License
 
 MIT.
