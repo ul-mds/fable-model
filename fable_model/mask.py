@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Literal, Union, Annotated
 
-from pydantic import Field, conint, confloat, model_validator
+from pydantic import Field, model_validator
 from typing_extensions import Self
 
 from fable_model.common import ParentModel, BitVectorEntity, AttributeValueEntity
@@ -58,19 +58,19 @@ class FilterType(str, Enum):
 
 class CLKFilter(ParentModel):
     type: Literal[FilterType.clk] = FilterType.clk
-    filter_size: conint(gt=0)
-    hash_values: conint(gt=0)
+    filter_size: Annotated[int, Field(gt=0)]
+    hash_values: Annotated[int, Field(gt=0)]
 
 
 class RBFFilter(ParentModel):
     type: Literal[FilterType.rbf] = FilterType.rbf
-    hash_values: conint(gt=0)
+    hash_values: Annotated[int, Field(gt=0)]
     seed: int
 
 
 class CLKRBFFilter(ParentModel):
     type: Literal[FilterType.clkrbf] = FilterType.clkrbf
-    hash_values: conint(gt=0)
+    hash_values: Annotated[int, Field(gt=0)]
 
 
 AnyFilter = Union[CLKFilter, RBFFilter, CLKRBFFilter]
@@ -100,7 +100,7 @@ class PermuteHardener(ParentModel):
 
 class RandomizedResponseHardener(ParentModel):
     name: Literal[Hardener.randomized_response] = Hardener.randomized_response
-    probability: confloat(ge=0, le=1)
+    probability: Annotated[float, Field(ge=0, le=1)]
     seed: int
 
 
@@ -110,9 +110,9 @@ class Rule90Hardener(ParentModel):
 
 class RehashHardener(ParentModel):
     name: Literal[Hardener.rehash] = Hardener.rehash
-    window_size: conint(gt=0, le=32)
-    window_step: conint(gt=0)
-    samples: conint(gt=0)
+    windows_size: Annotated[int, Field(gt=0, le=32)]
+    window_step: Annotated[int, Field(gt=0)]
+    samples: Annotated[int, Field(gt=0)]
 
 
 AnyHardener = Union[
@@ -126,7 +126,7 @@ AnyHardener = Union[
 
 
 class MaskConfig(ParentModel):
-    token_size: conint(gt=1)
+    token_size: Annotated[int, Field(gt=1)]
     hash: HashConfig
     prepend_attribute_name: Annotated[bool, Field(default=True)]
     filter: Annotated[AnyFilter, Field(discriminator="type")]
@@ -157,8 +157,8 @@ class StaticAttributeConfig(ParentModel):
 class WeightedAttributeConfig(ParentModel):
     attribute_name: str
     salt: AttributeSalt | None = Field(default=None)
-    weight: confloat(gt=0)
-    average_token_count: confloat(gt=0)
+    weight: Annotated[float, Field(gt=0)]
+    average_token_count: Annotated[float, Field(gt=0)]
 
 
 class BaseMaskRequest(ParentModel):

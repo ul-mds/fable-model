@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Literal, Union, Annotated
 
-from pydantic import Field, conint, model_validator
+from pydantic import Field, model_validator
 from typing_extensions import Self
 
 from fable_model.common import ParentModel, AttributeValueEntity
@@ -50,7 +50,7 @@ class MappingTransformer(ParentModel):
 
 class NumberTransformer(ParentModel):
     name: Literal[Transformer.number] = Transformer.number
-    decimal_places: conint(ge=0)
+    decimal_places: Annotated[int, Field(ge=0)]
 
 
 class PhoneticCodeAlgorithm(str, Enum):
