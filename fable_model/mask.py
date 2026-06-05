@@ -1,8 +1,7 @@
 from enum import Enum
-from typing import Literal, Union, Annotated
+from typing import Literal, Union, Annotated, Self
 
 from pydantic import Field, model_validator
-from typing_extensions import Self
 
 from fable_model.common import ParentModel, BitVectorEntity, AttributeValueEntity
 
