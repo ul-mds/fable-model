@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Annotated
 
-from pydantic import confloat, Field
+from pydantic import Field
 
 from fable_model.common import ParentModel, BitVectorEntity
 
@@ -19,7 +19,7 @@ class SimilarityMeasure(str, Enum):
 
 class MatchConfig(ParentModel):
     measure: SimilarityMeasure
-    threshold: confloat(ge=0, le=1)
+    threshold: float = Field(ge=0, le=1)
     method: MatchMethod = MatchMethod.crosswise
 
 
