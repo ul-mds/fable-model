@@ -19,6 +19,9 @@ from fable_model import (
     CLKFilter,
     WeightedAttributeConfig,
     FilterType,
+    MatchConfig,
+    SimilarityMeasure,
+    SimilarityAggregator,
 )
 
 
@@ -177,3 +180,24 @@ def test_entity_mask_request_attribute_salt_not_present_on_entity(filter_type, u
     assert (
         f"some configured attribute salts are not present on entities: `###` on entities with ID `{entity_id}`"
     ) in str(e.value)
+
+
+def test_match_config_unequal_amount_of_similarity_measures_and_threshold():
+    with pytest.raises(ValidationError) as e:
+        MatchConfig(
+            measures=[SimilarityMeasure.jaccard, SimilarityMeasure.dice, SimilarityMeasure.sokal_michener],
+            thresholds=[0.2, 0.4],
+        )
+
+    assert "Without an aggregator, there must be as many similarity measures as there are thresholds." in str(e.value)
+
+
+def test_match_config_multiple_thresholds_with_aggregator():
+    with pytest.raises(ValidationError) as e:
+        MatchConfig(
+            measures=[SimilarityMeasure.jaccard, SimilarityMeasure.dice, SimilarityMeasure.sokal_michener],
+            thresholds=[0.2, 0.4],
+            aggregator=SimilarityAggregator.avg,
+        )
+
+    assert "With an aggregator, there need to be exactly one threshold." in str(e.value)

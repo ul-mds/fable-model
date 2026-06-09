@@ -109,7 +109,7 @@ class Rule90Hardener(ParentModel):
 
 class RehashHardener(ParentModel):
     name: Literal[Hardener.rehash] = Hardener.rehash
-    windows_size: Annotated[int, Field(gt=0, le=32)]
+    window_size: Annotated[int, Field(gt=0, le=32)]
     window_step: Annotated[int, Field(gt=0)]
     samples: Annotated[int, Field(gt=0)]
 

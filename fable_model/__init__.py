@@ -38,6 +38,7 @@ from .match import (
     Match,
     BaseMatchRequest,
     MatchMethod,
+    SimilarityAggregator,
 )
 from .transform import (
     EmptyValueHandling,
@@ -117,4 +118,5 @@ __all__ = [
     "BaseTransformRequest",
     "BaseMatchRequest",
     "MatchMethod",
+    "SimilarityAggregator",
 ]
