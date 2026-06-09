@@ -17,6 +17,7 @@ from fable_model import (
     GlobalTransformerConfig,
     NormalizationTransformer,
     MatchMethod,
+    SimilarityAggregator,
 )
 
 _dummy_entity = AttributeValueEntity(
@@ -24,16 +25,36 @@ _dummy_entity = AttributeValueEntity(
 )
 
 
-def test_match_to_full_model():
+def test_match_to_full_model_without_aggregation():
     domain_lst = [BitVectorEntity(id="D001", value="kY7yXn+rmp8L0nyGw5NlMw==")]
     range_lst = [BitVectorEntity(id="R001", value="qig0C1i8YttqhPwo4VqLlg==")]
 
     base = BaseMatchRequest(
         config=MatchConfig(
-            measure=SimilarityMeasure.jaccard,
-            threshold=0.8,
+            measures=SimilarityMeasure.jaccard,
+            thresholds=0.8,
             method=MatchMethod.pairwise,
         )
+    )
+
+    req = base.with_vectors(domain_lst, range_lst)
+
+    assert base.config == req.config
+    assert domain_lst == req.domain
+    assert range_lst == req.range
+
+
+def test_match_to_full_model_with_aggregation():
+    domain_lst = [BitVectorEntity(id="D001", value="kY7yXn+rmp8L0nyGw5NlMw==")]
+    range_lst = [BitVectorEntity(id="R001", value="qig0C1i8YttqhPwo4VqLlg==")]
+
+    base = BaseMatchRequest(
+        config=MatchConfig(
+            measures=[SimilarityMeasure.cosine, SimilarityMeasure.roger_tanimoto, SimilarityMeasure.russell_rao],
+            thresholds=0.75,
+            method=MatchMethod.pairwise,
+            aggregator=SimilarityAggregator.avg,
+        ),
     )
 
     req = base.with_vectors(domain_lst, range_lst)

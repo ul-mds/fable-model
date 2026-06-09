@@ -279,12 +279,19 @@ _ = EntityMaskRequest(
 ### Bit vector matching
 
 ```python
-from fable_model import VectorMatchRequest, MatchConfig, SimilarityMeasure, BitVectorEntity
+from fable_model import (
+    VectorMatchRequest,
+    MatchConfig,
+    SimilarityMeasure,
+    BitVectorEntity,
+    SimilarityAggregator,
+)
 
 _ = VectorMatchRequest(
     config=MatchConfig(
-        measure=SimilarityMeasure.jaccard,
-        threshold=0.8
+        measures=[SimilarityMeasure.jaccard, SimilarityMeasure.cosine],
+        thresholds=0.8,
+        aggregator=SimilarityAggregator.avg,
     ),
     domain=[
         BitVectorEntity(
