@@ -1,7 +1,7 @@
 [project]
 name = "fable-model"
 version = "0.2.1"
-description = "Data models utilized in the FABLE ecosystem's HTTP-based PPRL service."
+description = "Data models utilized in the FABLE ecosystem's HTTP-based services."
 authors = [
     {name = "Maximilian Jugl"},
     {name = "Paul Brassel", email = "paul.brassel@medizin.uni-leipzig.de"}
