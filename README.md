@@ -7,9 +7,12 @@
 # FABLE Model
 
 This package contains model classes that are used in the FABLE (**F**ederated
-**A**nonymized **B**loom filter **L**inkage **E**ngine) ecosystem's PPRL service for validation purposes.
-They were developed with the intention of creating an HTTP-based service for Bloom filter-based record linkage.
-It includes models for the service's data transformation, masking and bit vector matching routines.
+**A**nonymized **B**loom filter **L**inkage **E**ngine) ecosystem's services for validation purposes.
+They were developed with the intention of creating HTTP-based services to perform Bloom filter-based record linkage in
+a federated setting.
+It includes models for data transformation, masking and bit vector matching routines that are used by the
+[FABLE PPRL service](https://github.com/ul-mds/fable-pprl-service) as well as models used by the
+[FABLE Broker service](https://github.com/ul-mds/fable-broker).
 Validation, serialization and deserialization are done using [Pydantic](https://docs.pydantic.dev/latest/).
 It is rare to use this package directly.
 Rather, it powers the functionalities of other packages.
@@ -20,11 +23,11 @@ Rather, it powers the functionalities of other packages.
 pip install fable-model
 ```
 
-## Data models
+## PPRL service
 
 Models for entity pre-processing, masking and bit vector matching are exposed through this package.
 The following examples are taken from the test suites of the
-[FABLE PPRL service package](https://github.com/ul-mds/fable-pprl-service) and show additional
+[PPRL service package](https://github.com/ul-mds/fable-pprl-service) and show additional
 validation steps in addition to the ones native to Pydantic.
 
 ### Entity transformation
@@ -308,6 +311,12 @@ _ = VectorMatchRequest(
     ]
 )
 ```
+
+## Broker service
+
+The `broker` module contains models used by the [Broker service](https://github.com/ul-mds/fable-broker) to validate
+requests and responses to create, manage and delete matching sessions.
+Follow the link to the repository of that service for further information.
 
 ## License
 
