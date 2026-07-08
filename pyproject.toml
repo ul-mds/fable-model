@@ -1,6 +1,6 @@
 [project]
 name = "fable-model"
-version = "0.2.0"
+version = "0.2.1"
 description = "Data models utilized in the FABLE ecosystem's HTTP-based PPRL service."
 authors = [
     {name = "Maximilian Jugl"},
@@ -37,6 +37,11 @@ line-length = 120
 [tool.pytest.ini_options]
 markers = [
     "integration: mark a test as an integration test."
+]
+
+[tool.coverage.run]
+omit = [
+    "fable_model/broker.py",
 ]
 
 [build-system]
