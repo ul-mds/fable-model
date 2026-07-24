@@ -1,6 +1,6 @@
 [project]
 name = "fable-model"
-version = "0.2.1"
+version = "0.2.2"
 description = "Data models utilized in the FABLE ecosystem's HTTP-based services."
 authors = [
     {name = "Maximilian Jugl"},
