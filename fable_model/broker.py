@@ -50,7 +50,7 @@ class ClientSubmissionRequest(BaseClientModel):
 
 class ClientVectorBatch(BaseModel):
     client: str
-    ids: list[int]
+    ids: list[str]
 
 
 class VectorMatchBatch(BaseModel):
