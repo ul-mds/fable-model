@@ -39,11 +39,6 @@ markers = [
     "integration: mark a test as an integration test."
 ]
 
-[tool.coverage.run]
-omit = [
-    "fable_model/broker.py",
-]
-
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
