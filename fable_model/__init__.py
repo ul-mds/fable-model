@@ -1,4 +1,4 @@
-from .common import BitVectorEntity, AttributeValueEntity, HealthResponse
+from .common import BitVectorEntity, AttributeValueEntity, HealthResponse, ServiceBaseInformation
 from .mask import (
     HashStrategy,
     DoubleHash,
@@ -153,4 +153,5 @@ __all__ = [
     "ClientResultRequest",
     "MatchedClientVector",
     "ClientResultResponse",
+    "ServiceBaseInformation",
 ]

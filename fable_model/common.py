@@ -1,6 +1,7 @@
-from typing import Literal
+from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict
+from packaging.version import Version, InvalidVersion
+from pydantic import BaseModel, ConfigDict, BeforeValidator
 
 
 class ParentModel(BaseModel):
@@ -19,3 +20,16 @@ class BitVectorEntity(ParentModel):
 
 class HealthResponse(ParentModel):
     status: Literal["ok"] = "ok"
+
+
+def _validate_version(value: str) -> str:
+    try:
+        Version(value)
+    except InvalidVersion as e:
+        raise ValueError(f"Invalid version: {value!r}") from e
+
+    return value
+
+
+class ServiceBaseInformation(ParentModel):
+    version: Annotated[str, BeforeValidator(_validate_version)]
