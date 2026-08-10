@@ -22,6 +22,7 @@ from fable_model import (
     MatchConfig,
     SimilarityMeasure,
     SimilarityAggregator,
+    ServiceBaseInformation,
 )
 
 
@@ -201,3 +202,23 @@ def test_match_config_multiple_thresholds_with_aggregator():
         )
 
     assert "With an aggregator, there need to be exactly one threshold." in str(e.value)
+
+
+@pytest.mark.parametrize(
+    "value,valid",
+    [
+        ("0.2.8", True),
+        ("1.3", True),
+        ("3", True),
+        ("1.x", False),
+        ("test", False),
+    ],
+)
+def test_base_service_information_model(value, valid):
+    if valid:
+        ServiceBaseInformation(version=value)
+    else:
+        with pytest.raises(ValidationError) as e:
+            ServiceBaseInformation(version=value)
+
+        assert "Invalid version:" in str(e.value)
