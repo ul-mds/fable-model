@@ -1,17 +1,17 @@
 from typing import Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, SecretStr
 
 from fable_model.common import BitVectorEntity
 from fable_model.match import MatchConfig
 
 
 class BaseSessionModel(BaseModel):
-    session: str
+    session: SecretStr
 
 
 class BaseAuthenticatedSessionModel(BaseSessionModel):
-    token: str
+    token: SecretStr
 
 
 class SessionCreationRequest(BaseSessionModel):
@@ -24,7 +24,7 @@ class SessionUpdateResponse(BaseSessionModel):
 
 
 class SessionCreationResponse(SessionUpdateResponse):
-    token: str
+    token: SecretStr
 
 
 SessionDeletionRequest = BaseAuthenticatedSessionModel
@@ -41,7 +41,7 @@ class MetaBitVectorEntity(BitVectorEntity):
 
 
 class BaseClientModel(BaseSessionModel):
-    client: str
+    client: SecretStr
 
 
 class ClientSubmissionRequest(BaseClientModel):
@@ -49,14 +49,14 @@ class ClientSubmissionRequest(BaseClientModel):
 
 
 class ClientVectorBatch(BaseModel):
-    client: str
+    client: SecretStr
     ids: list[str]
 
 
 class VectorMatchBatch(BaseModel):
     domain: ClientVectorBatch
     range: list[ClientVectorBatch]
-    session: str
+    session: SecretStr
     config: MatchConfig
 
 
