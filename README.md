@@ -1,6 +1,6 @@
 [![PyPI](https://img.shields.io/pypi/v/fable-model?cacheSeconds=0)](https://pypi.org/project/fable-model/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/fable-model?cacheSeconds=0)](https://pypi.org/project/fable-model/)
-![Code Coverage](https://img.shields.io/badge/Coverage-98%25-brightgreen.svg)
+![Code Coverage](https://img.shields.io/badge/Coverage-97%25-brightgreen.svg)
 [![License](https://img.shields.io/pypi/l/fable-model?cacheSeconds=0)](https://pypi.org/project/fable-model/)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
