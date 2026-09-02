@@ -31,6 +31,10 @@ class SessionUpdateResponse(BaseSessionModel):
     expires_at: int
 
 
+class SessionGetResponse(SessionUpdateResponse):
+    match_config: MatchConfig
+
+
 class SessionCreationResponse(SessionUpdateResponse):
     token: SecretStr
 

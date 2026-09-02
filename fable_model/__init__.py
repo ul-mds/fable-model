@@ -75,6 +75,7 @@ from .broker import (
     ClientResultRequest,
     MatchedClientVector,
     ClientResultResponse,
+    SessionGetResponse,
 )
 
 __all__ = [
@@ -154,4 +155,5 @@ __all__ = [
     "MatchedClientVector",
     "ClientResultResponse",
     "ServiceBaseInformation",
+    "SessionGetResponse",
 ]
