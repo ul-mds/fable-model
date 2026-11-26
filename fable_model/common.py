@@ -1,7 +1,7 @@
 from typing import Annotated, Literal
 
 from packaging.version import Version, InvalidVersion
-from pydantic import BaseModel, ConfigDict, BeforeValidator
+from pydantic import BaseModel, ConfigDict, BeforeValidator, Field
 
 
 class ParentModel(BaseModel):
@@ -13,9 +13,26 @@ class AttributeValueEntity(ParentModel):
     attributes: dict[str, str]
 
 
+class BitVectorMetadata(BaseModel):
+    name: str
+    value: str
+
+
+class PseudonymizedAttributeValueEntity(AttributeValueEntity):
+    pseudonym: str
+    metadata: list[BitVectorMetadata] = Field(default_factory=list)
+
+    def to_attribute_value_entity(self) -> AttributeValueEntity:
+        return AttributeValueEntity(id=self.id, attributes=self.attributes)
+
+
 class BitVectorEntity(ParentModel):
     id: str
     value: str
+
+
+class MetaBitVectorEntity(BitVectorEntity):
+    metadata: list[BitVectorMetadata] = Field(default_factory=list)
 
 
 class HealthResponse(ParentModel):

@@ -1,5 +1,5 @@
 import pytest
-from pydantic import ValidationError
+from pydantic import ValidationError, SecretStr
 
 from fable_model import (
     EntityTransformRequest,
@@ -23,7 +23,16 @@ from fable_model import (
     SimilarityMeasure,
     SimilarityAggregator,
     ServiceBaseInformation,
+    ClientCreationRequest,
+    BaseTransformRequest,
+    BaseMaskRequest,
+    AttributeTransformerConfig,
+    NormalizationTransformer,
+    MetadataAttribute,
+    BitVectorMetadata,
+    PseudonymizedAttributeValueEntity,
 )
+from tests.helpers import next_random_string
 
 
 def test_entity_transform_request_no_transformers(uuid4):
@@ -222,3 +231,103 @@ def test_base_service_information_model(value, valid):
             ServiceBaseInformation(version=value)
 
         assert "Invalid version:" in str(e.value)
+
+
+def test_metadata_attribute_to_bit_vector_metadata():
+    metadata_attr = MetadataAttribute(name=next_random_string(), attribute=next_random_string())
+    value = next_random_string()
+    vec = metadata_attr.to_metadata(value=value)
+
+    assert isinstance(vec, BitVectorMetadata)
+    assert vec.name == metadata_attr.name
+    assert vec.value == value
+
+
+def test_to_attribute_value_entity():
+    psn_entity = PseudonymizedAttributeValueEntity(
+        id=next_random_string(),
+        attributes={next_random_string(): next_random_string()},
+        pseudonym=next_random_string(),
+    )
+    attr_entity = psn_entity.to_attribute_value_entity()
+
+    assert isinstance(attr_entity, AttributeValueEntity)
+    assert attr_entity.id == psn_entity.id
+    assert attr_entity.attributes == psn_entity.attributes
+
+
+def test_client_creation_request_attributes():
+    r = ClientCreationRequest(
+        session=SecretStr("session-name"),
+        data_source_domain="source",
+        transformation=BaseTransformRequest(
+            config=TransformConfig(
+                empty_value=EmptyValueHandling.skip,
+            ),
+            attribute_transformers=[
+                AttributeTransformerConfig(
+                    attribute_name="foo",
+                    transformers=[NormalizationTransformer()],
+                ),
+            ],
+        ),
+        masking=BaseMaskRequest(
+            config=MaskConfig(
+                token_size=2,
+                filter=CLKRBFFilter(
+                    hash_values=5,
+                ),
+                hash=HashConfig(
+                    function=HashFunction(
+                        algorithms=[HashAlgorithm.sha1],
+                    ),
+                    strategy=DoubleHash(),
+                ),
+            ),
+            attributes=[
+                StaticAttributeConfig(attribute_name="foo"),
+                StaticAttributeConfig(attribute_name="bar"),
+            ],
+        ),
+    )
+
+    assert {"foo", "bar"} == set(r.attributes)
+
+    with pytest.raises(ValidationError) as e:
+        ClientCreationRequest(
+            session=SecretStr("session-name"),
+            data_source_domain="source",
+            transformation=BaseTransformRequest(
+                config=TransformConfig(
+                    empty_value=EmptyValueHandling.skip,
+                ),
+                attribute_transformers=[
+                    AttributeTransformerConfig(
+                        attribute_name="foobar",
+                        transformers=[NormalizationTransformer()],
+                    ),
+                ],
+            ),
+            masking=BaseMaskRequest(
+                config=MaskConfig(
+                    token_size=2,
+                    filter=CLKRBFFilter(
+                        hash_values=5,
+                    ),
+                    hash=HashConfig(
+                        function=HashFunction(
+                            algorithms=[HashAlgorithm.sha1],
+                        ),
+                        strategy=DoubleHash(),
+                    ),
+                ),
+                attributes=[
+                    StaticAttributeConfig(attribute_name="foo"),
+                    StaticAttributeConfig(attribute_name="bar"),
+                ],
+            ),
+        )
+
+    assert "There are attributes configured to be transformed that are not configured to be masked, {'foobar'}." in str(
+        e.value
+    )
