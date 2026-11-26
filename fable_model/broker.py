@@ -2,7 +2,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, Field, SecretStr, field_serializer
 
-from fable_model.common import BitVectorEntity
+from fable_model.common import BitVectorMetadata, MetaBitVectorEntity
 from fable_model.match import MatchConfig
 
 
@@ -45,15 +45,6 @@ class SessionCreationResponse(SessionUpdateResponse):
 
 SessionDeletionRequest = BaseAuthenticatedSessionModel
 SessionUpdateRequest = BaseAuthenticatedSessionModel
-
-
-class BitVectorMetadata(BaseModel):
-    name: str
-    value: str
-
-
-class MetaBitVectorEntity(BitVectorEntity):
-    metadata: list[BitVectorMetadata] = Field(default_factory=list)
 
 
 class BaseClientModel(BaseSessionModel):

@@ -1,4 +1,12 @@
-from .common import BitVectorEntity, AttributeValueEntity, HealthResponse, ServiceBaseInformation
+from .common import (
+    BitVectorEntity,
+    AttributeValueEntity,
+    HealthResponse,
+    ServiceBaseInformation,
+    BitVectorMetadata,
+    MetaBitVectorEntity,
+    PseudonymizedAttributeValueEntity,
+)
 from .mask import (
     HashStrategy,
     DoubleHash,
@@ -66,8 +74,6 @@ from .broker import (
     SessionCreationResponse,
     SessionDeletionRequest,
     SessionUpdateResponse,
-    BitVectorMetadata,
-    MetaBitVectorEntity,
     BaseClientModel,
     ClientSubmissionRequest,
     ClientVectorBatch,
@@ -76,6 +82,14 @@ from .broker import (
     MatchedClientVector,
     ClientResultResponse,
     SessionGetResponse,
+)
+from .resolver import (
+    MetadataAttribute,
+    ClientCreationRequest,
+    ClientMatchSession,
+    PseudonymsSubmissionRequest,
+    ResultsFetchingRequest,
+    PseudonymMatchResponse,
 )
 
 __all__ = [
@@ -156,4 +170,11 @@ __all__ = [
     "ClientResultResponse",
     "ServiceBaseInformation",
     "SessionGetResponse",
+    "PseudonymizedAttributeValueEntity",
+    "MetadataAttribute",
+    "ClientCreationRequest",
+    "ClientMatchSession",
+    "PseudonymsSubmissionRequest",
+    "ResultsFetchingRequest",
+    "PseudonymMatchResponse",
 ]

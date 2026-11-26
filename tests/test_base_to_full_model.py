@@ -18,6 +18,7 @@ from fable_model import (
     NormalizationTransformer,
     MatchMethod,
     SimilarityAggregator,
+    StaticAttributeConfig,
 )
 
 _dummy_entity = AttributeValueEntity(
@@ -68,12 +69,13 @@ def test_mask_to_full_model():
     entities = [_dummy_entity]
 
     base = BaseMaskRequest(
+        attributes=[StaticAttributeConfig(attribute_name="first_name")],
         config=MaskConfig(
             token_size=2,
             hash=HashConfig(function=HashFunction(algorithms=[HashAlgorithm.sha1]), strategy=DoubleHash()),
             filter=CLKFilter(filter_size=1024, hash_values=5),
             padding="_",
-        )
+        ),
     )
 
     req = base.with_entities(entities)
