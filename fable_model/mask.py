@@ -162,7 +162,7 @@ class WeightedAttributeConfig(ParentModel):
 
 class BaseMaskRequest(ParentModel):
     config: MaskConfig
-    attributes: Annotated[list[WeightedAttributeConfig] | list[StaticAttributeConfig], Field(default_factory=list)]
+    attributes: list[WeightedAttributeConfig] | list[StaticAttributeConfig] = Field(default_factory=list, min_length=1)
 
     def with_entities(self, entities: list[AttributeValueEntity]) -> "EntityMaskRequest":
         return EntityMaskRequest(
